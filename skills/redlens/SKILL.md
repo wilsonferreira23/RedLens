@@ -44,12 +44,19 @@ metadata:
 - Docker networking: `references/environment/docker-mode-networking.md`
 - State files: `references/environment/state-files.md`
 
+## Browser Automation
+
+Use CloakBrowser for browser-dependent web testing, CDN challenge handling, and anti-bot protected pages. Do not default to Puppeteer, Playwright, or regular headless Chromium when the target returns JS challenges, CAPTCHA pages, "Checking your browser" screens, Cloudflare Turnstile, or similar anti-bot flows.
+
+Read `references/web/tools/cloakbrowser.md` before browser automation and `references/playbooks/web-application.md` for the web assessment flow.
+
 ## Playbook Routing
 
 Read `references/playbooks/assessment-modes.md` and `references/playbooks/README.md`, then load only the relevant playbook:
 
 - Assessment modes: `references/playbooks/assessment-modes.md`
 - Web application: `references/playbooks/web-application.md`
+- CloakBrowser: `references/web/tools/cloakbrowser.md`
 - API security: `references/playbooks/api-security.md`
 - External attack surface: `references/playbooks/external-attack-surface.md`
 - Internal network: `references/playbooks/internal-network.md`

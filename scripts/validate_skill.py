@@ -63,6 +63,10 @@ def validate_skill() -> None:
     text_lower = text.lower()
     if "references/playbooks/assessment-modes.md" not in text:
         fail("SKILL.md must link to assessment-modes.md")
+    if "references/web/tools/cloakbrowser.md" not in text:
+        fail("SKILL.md must link to cloakbrowser.md")
+    if "CloakBrowser" not in text:
+        fail("SKILL.md must mention CloakBrowser")
     for mode in ("quick", "standard", "deep"):
         if mode not in text_lower:
             fail(f"SKILL.md must mention assessment mode: {mode}")
