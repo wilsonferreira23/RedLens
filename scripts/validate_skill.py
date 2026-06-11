@@ -8,6 +8,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 SKILL = ROOT / "skills" / "redlens" / "SKILL.md"
 AGENT = ROOT / "opencode" / "agents" / "redlens.md"
+ASSESSMENT_MODES = ROOT / "skills" / "redlens" / "references" / "playbooks" / "assessment-modes.md"
 NAME_RE = re.compile(r"^[a-z0-9]+(-[a-z0-9]+)*$")
 LINK_RE = re.compile(r"`(references/[^`]+)`|\((references/[^)]+)\)")
 FORBIDDEN_DEFAULTS = [
@@ -60,6 +61,11 @@ def validate_skill() -> None:
         fail("SKILL.md body must stay under 500 lines")
     text = SKILL.read_text(encoding="utf-8")
     text_lower = text.lower()
+    if "references/playbooks/assessment-modes.md" not in text:
+        fail("SKILL.md must link to assessment-modes.md")
+    for mode in ("quick", "standard", "deep"):
+        if mode not in text_lower:
+            fail(f"SKILL.md must mention assessment mode: {mode}")
     for phrase in FORBIDDEN_DEFAULTS:
         if phrase in text_lower:
             fail(f"forbidden unsafe default phrase: {phrase}")
@@ -68,6 +74,24 @@ def validate_skill() -> None:
         linked = SKILL.parent / rel
         if not linked.exists():
             fail(f"broken reference link: {rel}")
+
+
+def validate_assessment_modes() -> None:
+    if not ASSESSMENT_MODES.exists():
+        fail(f"missing {ASSESSMENT_MODES}")
+    text = ASSESSMENT_MODES.read_text(encoding="utf-8")
+    text_lower = text.lower()
+    required_phrases = [
+        "`quick`",
+        "`standard`",
+        "`deep`",
+        "mandatory coverage",
+        "escalation triggers",
+        "do not say \"secure\"",
+    ]
+    for phrase in required_phrases:
+        if phrase not in text_lower:
+            fail(f"assessment-modes.md missing required phrase: {phrase}")
 
 
 def validate_agent() -> None:
@@ -80,10 +104,17 @@ def validate_agent() -> None:
         fail("OpenCode agent must instruct usage of redlens skill")
     if "RedLens" not in body:
         fail("OpenCode agent must include the public display name RedLens")
+    body_lower = body.lower()
+    for mode in ("quick", "standard", "deep"):
+        if mode not in body_lower:
+            fail(f"OpenCode agent must mention assessment mode: {mode}")
+    if "standard" not in body_lower or "default" not in body_lower:
+        fail("OpenCode agent must define standard as the default mode")
 
 
 def main() -> None:
     validate_skill()
+    validate_assessment_modes()
     validate_agent()
     print("OK: RedLens skill package is valid")
 

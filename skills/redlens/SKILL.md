@@ -23,12 +23,17 @@ metadata:
 
 1. Identify target type: URL, domain, IP, CIDR, repository, mobile app, wireless SSID, artifact, or account set.
 2. Confirm authorization, scope, constraints, test type, rate limits, lockout policy, and reporting format.
-3. Select execution environment:
+3. Select assessment mode:
+   - `quick`: fast triage with mandatory coverage and explicit gaps.
+   - `standard`: default mode; broad, evidence-driven coverage that should feel close to deep without the longest-running checks.
+   - `deep`: exhaustive mode with expanded enumeration, chaining, cross-validation, and comprehensive reporting.
+4. Read `references/playbooks/assessment-modes.md` and apply its required coverage before choosing individual tools.
+5. Select execution environment:
    - Local Kali: use direct commands.
    - SSH Kali: use `ssh` and `scp`.
    - Docker Kali: use persistent `kali-pentest` container.
-4. Create state directory: `/tmp/kali-pentest-state/<safe-target-name>/`.
-5. Record scope, approvals, commands, evidence paths, findings, and deferred actions in state files.
+6. Create state directory: `/tmp/kali-pentest-state/<safe-target-name>/`.
+7. Record scope, approvals, assessment mode, commands, evidence paths, findings, gaps, and deferred actions in state files.
 
 ## Environment References
 
@@ -41,8 +46,9 @@ metadata:
 
 ## Playbook Routing
 
-Read `references/playbooks/README.md`, then load only the relevant playbook:
+Read `references/playbooks/assessment-modes.md` and `references/playbooks/README.md`, then load only the relevant playbook:
 
+- Assessment modes: `references/playbooks/assessment-modes.md`
 - Web application: `references/playbooks/web-application.md`
 - API security: `references/playbooks/api-security.md`
 - External attack surface: `references/playbooks/external-attack-surface.md`
@@ -59,12 +65,13 @@ Read `references/playbooks/README.md`, then load only the relevant playbook:
 
 ## Operating Loop
 
-1. Plan the next safe action from the selected playbook.
+1. Plan the next safe action from the selected mode contract and playbook.
 2. Run the minimum command needed for that step in the selected environment.
 3. Save raw output to a file instead of flooding context.
 4. Extract only relevant evidence into the state directory.
 5. Update findings with severity, affected asset, reproduction steps, impact, evidence, and remediation.
-6. Reassess risk before escalating technique or intensity.
+6. Track required coverage, skipped checks, and why they were skipped.
+7. Reassess risk before escalating technique or intensity.
 
 ## Reporting
 
