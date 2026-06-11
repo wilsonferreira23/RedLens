@@ -1,36 +1,76 @@
 # RedLens
 
-**Turn Codex, Claude Code, and OpenCode into a serious Kali-powered security assessment operator.**
+![RedLens cover](assets/redlens-readme-cover.png)
 
-RedLens is a portable Agent Skill for authorized penetration testing. It gives your AI agent a professional assessment loop: confirm scope, choose depth, run Kali workflows, preserve evidence, validate findings, and produce reports an engineer can actually fix from.
+**Attack your own vibe-coded app before the internet does.**
+
+RedLens is a portable Agent Skill that turns Codex, Claude Code, and OpenCode into a blackbox red-team operator for your own AI-built systems. It probes your app from the outside, finds the security mistakes vibe coding tends to hide, and generates a professional report you can paste back into your AI builder to fix the issues.
 
 [![Agent Skill](https://img.shields.io/badge/Agent%20Skill-RedLens-red)](#install)
+[![Built for](https://img.shields.io/badge/vibe--coded%20apps-blackbox%20pentest-red)](#why-redlens-exists)
 [![Works with](https://img.shields.io/badge/Codex%20%7C%20Claude%20Code%20%7C%20OpenCode-ready-black)](#use)
 [![Kali](https://img.shields.io/badge/Kali-local%20%7C%20SSH%20%7C%20Docker-557C94)](#how-it-runs)
 [![CloakBrowser](https://img.shields.io/badge/CloakBrowser-stealth%20automation-purple)](#cloakbrowser-built-in)
 [![License](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
 
-If you have ever watched an AI "pentest" by running one scanner, dumping noisy output, and calling it done, RedLens is built to fix that.
+## Why RedLens Exists
 
-## Why People Try RedLens
+AI can help you build a SaaS in a weekend. It can also quietly ship:
 
-- **It gives agents a real pentest brain.** Not just tool names. RedLens defines scope, coverage, evidence, escalation, and reporting behavior.
-- **Quick and standard modes are not watered down.** They keep mandatory coverage and explicit gaps, while deep mode adds exhaustive chaining and cross-validation.
-- **It works where you already work.** Install once and use it from Codex, Claude Code, or OpenCode.
-- **It is Kali-native.** Run through local Kali, SSH to a Kali box, or a persistent Docker container.
-- **It uses CloakBrowser when normal headless browsers fail.** RedLens knows when to switch from CLI tooling to stealth browser automation for JS challenges and anti-bot protected pages.
-- **It ships with a serious reference pack.** 300+ files covering recon, web, API, network, cloud, wireless, password audits, forensics, post-exploitation planning, and reporting.
+- broken auth and session handling,
+- IDOR/BOLA bugs that leak other users' data,
+- exposed admin routes and forgotten debug panels,
+- weak CORS, headers, JWT, and token handling,
+- Supabase/RLS-style authorization mistakes,
+- API endpoints hidden in frontend JavaScript,
+- upload, webhook, billing, invite, and tenant-boundary flaws.
+
+Most builders only discover these when real users, bots, or attackers touch the product.
+
+RedLens gives you a better loop:
+
+```text
+Build with AI -> Run RedLens blackbox -> Get a professional report
+              -> Paste report into your AI coder -> Fix -> Retest
+```
+
+## The Promise
+
+RedLens does not try to be another noisy scanner wrapper. It is designed to behave like a disciplined pentest operator:
+
+- **Blackbox first:** tests your app like an outside attacker would see it.
+- **Built for AI builders:** outputs findings in a format you can hand back to Claude, Codex, Cursor, v0, OpenCode, or any coding agent.
+- **Evidence-driven:** captures what was tested, what was found, what failed, and what still needs deeper review.
+- **Report-first:** produces structured findings, remediation steps, retest guidance, and attack-chain narratives.
+- **Mode-aware:** `quick`, `standard`, and `deep` control depth without turning quality into scanner spam.
 
 ## What Makes It Different
 
-| Typical AI Pentest Prompt | RedLens |
+| The usual vibe-coded security check | RedLens |
 | --- | --- |
-| "Run some tools" | Selects a mode, playbook, environment, and evidence plan |
-| One scanner dump | Multi-step coverage with required gaps and next actions |
-| Vague "looks secure" output | Precise tested/untested coverage and confirmed findings |
-| No depth control | `quick`, `standard`, and `deep` contracts |
-| Random commands | Kali workflows with state, artifacts, and reporting |
+| "Ask the AI if my app is secure" | Runs an external blackbox assessment workflow |
+| One scanner dump | Evidence, coverage, gaps, and next actions |
+| Vague "looks good" answer | Confirmed findings with reproduction and remediation |
+| No context for the fixing AI | Report formatted so another AI can patch the app |
 | Headless browser gets blocked | CloakBrowser workflow for authorized browser-dependent testing |
+| No depth control | `quick`, `standard`, and `deep` contracts |
+
+## What You Get
+
+RedLens can produce a professional pentest package:
+
+- executive summary,
+- technical findings,
+- affected assets and endpoints,
+- reproduction steps,
+- evidence artifact index,
+- business impact and technical impact,
+- remediation guidance,
+- attack-chain narrative when findings combine,
+- retest checklist,
+- explicit gaps and recommended next depth.
+
+The point is simple: **you should be able to give the report to an AI coding agent and say "fix this."**
 
 ## Assessment Modes
 
@@ -44,20 +84,20 @@ RedLens has depth modes that control runtime, not quality.
 
 Default mode is `standard`.
 
-## What RedLens Covers
+## What RedLens Hunts For
 
-- **Recon:** DNS, subdomains, ports, technologies, exposed services, screenshots, historical URLs.
-- **Web apps:** auth, sessions, IDOR/BOLA, XSS, SQLi, SSTI, uploads, headers, CORS, business logic.
-- **APIs:** OpenAPI, GraphQL, gRPC, token handling, object authorization, fuzzing, rate-limit abuse.
-- **Networks:** external attack surface, internal enumeration, protocol checks, service validation.
-- **Cloud-native:** Kubernetes, containers, AWS, Azure, GCP, benchmark-driven review.
-- **Password audits:** hash identification, cracking strategy, lockout-aware online testing.
-- **Wireless, RFID, VoIP, ICS:** specialized playbooks with explicit risk boundaries.
-- **Reporting:** executive summaries, technical findings, evidence references, retest steps.
+- **Auth bugs:** weak sessions, missing re-auth, JWT flaws, reset/signup issues.
+- **Authorization bugs:** IDOR, BOLA, tenant isolation failures, role bypasses.
+- **API exposure:** hidden routes, OpenAPI/GraphQL/gRPC hints, undocumented endpoints.
+- **Frontend leaks:** secrets, API paths, internal domains, feature flags in JavaScript.
+- **Web vulns:** XSS, SQLi, SSTI, SSRF, path traversal, uploads, deserialization, CORS.
+- **Business logic:** billing, coupons, invites, trial bypass, race conditions, workflow skips.
+- **Infra exposure:** ports, services, dashboards, cloud-native misconfigurations.
+- **Reporting gaps:** what was not tested, why, and what to run next.
 
 ## CloakBrowser Built In
 
-Modern targets often do not give scanners the real app. They give them a JS challenge, a bot wall, or a fake "Checking your browser" page.
+Modern apps often do not show scanners the real app. They show a JS challenge, bot wall, or "Checking your browser" page.
 
 RedLens includes a CloakBrowser workflow for authorized web assessments:
 
@@ -90,19 +130,19 @@ The installer copies RedLens to:
 Codex or Claude Code:
 
 ```text
-Use RedLens in standard mode for an authorized assessment of https://example.com.
+Use RedLens in standard mode to blackbox test my own vibe-coded app at https://example.com and generate a report I can give to my AI coding agent to fix.
 ```
 
 Claude Code command:
 
 ```text
-/redlens run a quick authorized assessment of https://example.com and list gaps
+/redlens run a quick authorized blackbox assessment of my app at https://example.com and list what my AI builder should fix first
 ```
 
 OpenCode:
 
 ```text
-@redlens run a deep authorized assessment of https://example.com within this scope: ...
+@redlens run a deep authorized blackbox assessment of my own app at https://example.com within this scope: ...
 ```
 
 ## How It Runs
@@ -120,8 +160,8 @@ Professional runs can use structured state files: `engagement.json`, `findings.j
 ## The RedLens Loop
 
 ```text
-Authorize -> Scope -> Choose mode -> Select playbook -> Run focused checks
-          -> Save evidence -> Validate findings -> Report fixes -> Recommend next depth
+Authorize -> Scope -> Choose mode -> Blackbox the app -> Save evidence
+          -> Generate report -> Paste into AI builder -> Fix -> Retest
 ```
 
 ## Professional Reports
@@ -150,6 +190,7 @@ OK: RedLens skill package is valid
 ## Repository Layout
 
 ```text
+assets/redlens-readme-cover.png               # README cover image
 skills/redlens/SKILL.md                       # Canonical cross-agent skill
 skills/redlens/references/playbooks/          # Mode contracts and assessment playbooks
 skills/redlens/references/strategy/           # Operator brain, coverage gates, attack chains
@@ -162,16 +203,18 @@ scripts/validate_skill.py                     # Package validator
 
 ## Safety
 
-RedLens is for authorized security work only.
+RedLens is for authorized testing of systems you own or are explicitly allowed to assess.
 
-- No scanning or probing without explicit authorization.
+- No scanning or probing without authorization.
 - Scope is binding: hosts, ports, accounts, time windows, and techniques matter.
 - High-risk actions require a second explicit approval.
 - RedLens should report what was tested, what was not tested, and what should happen next.
 
 ## Give It A Star
 
-If you want AI agents that behave less like toy scanners and more like disciplined security operators, star the repo and try RedLens on a lab or authorized target.
+If you are building software with AI, do not just ask the AI if it is secure. Attack your own app in blackbox, get the report, paste it back into your AI builder, and fix the weak spots before users find them.
+
+Star RedLens if you want AI-built apps to ship with fewer obvious security mistakes.
 
 ## License
 
