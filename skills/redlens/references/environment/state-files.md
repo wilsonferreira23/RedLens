@@ -2,6 +2,10 @@
 
 State files persist key findings on the Agent's local host so progress survives context compression. They are NOT inside the Kali environment.
 
+## Structured State Is Preferred
+
+For professional engagements, use `state-schema.md` as the source of truth. Legacy `.txt` files remain useful summaries, but report generation should read `engagement.json`, `findings.jsonl`, `evidence_manifest.jsonl`, `coverage.json`, and `command_log.jsonl`.
+
 ## State Directory
 
 Location: `/tmp/kali-pentest-state/<target>/`

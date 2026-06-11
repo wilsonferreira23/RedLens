@@ -34,6 +34,7 @@ metadata:
    - Docker Kali: use persistent `kali-pentest` container.
 6. Create state directory: `/tmp/kali-pentest-state/<safe-target-name>/`.
 7. Record scope, approvals, assessment mode, commands, evidence paths, findings, gaps, and deferred actions in state files.
+8. Read `references/strategy/operator-brain.md` and use the hypothesis loop before selecting tools.
 
 ## Environment References
 
@@ -43,6 +44,7 @@ metadata:
 - Persistent Docker container: `references/environment/docker-mode-persistent-container.md`
 - Docker networking: `references/environment/docker-mode-networking.md`
 - State files: `references/environment/state-files.md`
+- Structured state schema: `references/environment/state-schema.md`
 
 ## Browser Automation
 
@@ -54,6 +56,9 @@ Read `references/web/tools/cloakbrowser.md` before browser automation and `refer
 
 Read `references/playbooks/assessment-modes.md` and `references/playbooks/README.md`, then load only the relevant playbook:
 
+- Operator brain: `references/strategy/operator-brain.md`
+- Attack chain analysis: `references/strategy/attack-chain-analysis.md`
+- Coverage gates: `references/strategy/coverage-gates.md`
 - Assessment modes: `references/playbooks/assessment-modes.md`
 - Web application: `references/playbooks/web-application.md`
 - CloakBrowser: `references/web/tools/cloakbrowser.md`
@@ -69,6 +74,7 @@ Read `references/playbooks/assessment-modes.md` and `references/playbooks/README
 - Password audit: `references/playbooks/password-audit.md`
 - Post-exploitation: `references/playbooks/post-exploitation.md`
 - Reporting: `references/playbooks/reporting-workflow.md`
+- Professional report standard: `references/reporting/professional-report-standard.md`
 
 ## Operating Loop
 
@@ -91,5 +97,7 @@ Produce an executive summary and technical report with:
 - Business impact.
 - Remediation guidance.
 - Retest checklist.
+- Attack chain narratives when multiple findings combine into higher impact.
 
 Use `references/playbooks/reporting-workflow.md` for structure.
+Use `references/reporting/professional-report-standard.md` and `references/reporting/finding-schema.md` as the professional deliverable contract.

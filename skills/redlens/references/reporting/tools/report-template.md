@@ -64,6 +64,9 @@ which could allow an attacker to **{impact description}**.
 
 ## Scope
 
+### Authorization Statement
+This assessment was conducted under explicit written authorization. Testing was constrained to the scope, time windows, accounts, and techniques approved for the engagement.
+
 ### In-Scope
 - IP/Domain 1
 - IP/Domain 2
@@ -75,6 +78,16 @@ which could allow an attacker to **{impact description}**.
 - Testing hours: Weekdays 09:00–18:00
 - No DoS attacks permitted
 - No data modification permitted
+
+---
+
+## Methodology
+
+**Assessment Mode**: quick / standard / deep  
+**Primary Playbooks Used**: web / API / internal network / external attack surface / AD / cloud / mobile / wireless / other  
+**Execution Environment**: local Kali / SSH Kali / Docker Kali  
+
+Describe the testing approach, coverage gates, known limitations, and accepted gaps.
 
 ---
 
@@ -100,6 +113,18 @@ which could allow an attacker to **{impact description}**.
 3. {F-XXX} — {final impact}
 
 **Overall Impact**: {combined impact that exceeds individual finding severities}
+
+---
+
+## Coverage And Gaps
+
+| Area | Tested | Result | Gaps / Limitations |
+|------|--------|--------|--------------------|
+| Asset discovery | Yes/No | Summary | Notes |
+| Endpoint inventory | Yes/No | Summary | Notes |
+| Auth / authorization | Yes/No | Summary | Notes |
+| Injection testing | Yes/No | Summary | Notes |
+| Business logic | Yes/No | Summary | Notes |
 
 ---
 
@@ -174,6 +199,22 @@ $ sqlmap -u "http://target.com/api/login" --data="username=test&password=test" -
 
 ---
 
+## Evidence Artifact Index
+
+| Evidence ID | Finding | Type | Path | SHA256 | Redaction |
+|-------------|---------|------|------|--------|-----------|
+| E-001 | F-001 | HTTP request/response | evidence/F-001/request.txt | {sha256} | Redacted |
+
+---
+
+## Retest Checklist
+
+| Finding | Retest Action | Expected Fixed Result | Status |
+|---------|---------------|----------------------|--------|
+| F-001 | Repeat SQL injection payload against login endpoint | Payload is rejected and query remains parameterized | Pending |
+
+---
+
 ## Appendices
 
 ### A. Tools Used
@@ -192,6 +233,9 @@ $ sqlmap -u "http://target.com/api/login" --data="username=test&password=test" -
 This penetration test was conducted under an authorization agreement signed by both parties.
 All testing activities were performed within the agreed scope.
 The testers bear no responsibility for system anomalies resulting from testing activities.
+
+### D. Redaction Note
+Sensitive values in the report body are redacted. Full unredacted evidence, if authorized for retention, must be stored only in the agreed evidence location.
 ````
 
 ### Risk Level Definitions

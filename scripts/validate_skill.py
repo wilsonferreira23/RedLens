@@ -9,6 +9,19 @@ ROOT = Path(__file__).resolve().parents[1]
 SKILL = ROOT / "skills" / "redlens" / "SKILL.md"
 AGENT = ROOT / "opencode" / "agents" / "redlens.md"
 ASSESSMENT_MODES = ROOT / "skills" / "redlens" / "references" / "playbooks" / "assessment-modes.md"
+PRO_REPORT = ROOT / "skills" / "redlens" / "references" / "reporting" / "professional-report-standard.md"
+REQUIRED_FILES = [
+    ROOT / "skills" / "redlens" / "references" / "strategy" / "operator-brain.md",
+    ROOT / "skills" / "redlens" / "references" / "strategy" / "attack-chain-analysis.md",
+    ROOT / "skills" / "redlens" / "references" / "strategy" / "coverage-gates.md",
+    ROOT / "skills" / "redlens" / "references" / "environment" / "state-schema.md",
+    PRO_REPORT,
+    ROOT / "skills" / "redlens" / "references" / "reporting" / "finding-schema.md",
+    ROOT / "scripts" / "redlens_init_state.py",
+    ROOT / "scripts" / "redlens_record_finding.py",
+    ROOT / "scripts" / "redlens_add_evidence.py",
+    ROOT / "scripts" / "redlens_report_skeleton.py",
+]
 NAME_RE = re.compile(r"^[a-z0-9]+(-[a-z0-9]+)*$")
 LINK_RE = re.compile(r"`(references/[^`]+)`|\((references/[^)]+)\)")
 FORBIDDEN_DEFAULTS = [
@@ -67,6 +80,14 @@ def validate_skill() -> None:
         fail("SKILL.md must link to cloakbrowser.md")
     if "CloakBrowser" not in text:
         fail("SKILL.md must mention CloakBrowser")
+    for required_ref in (
+        "operator-brain.md",
+        "attack-chain-analysis.md",
+        "coverage-gates.md",
+        "professional-report-standard.md",
+    ):
+        if required_ref not in text:
+            fail(f"SKILL.md must link to {required_ref}")
     for mode in ("quick", "standard", "deep"):
         if mode not in text_lower:
             fail(f"SKILL.md must mention assessment mode: {mode}")
@@ -98,6 +119,19 @@ def validate_assessment_modes() -> None:
             fail(f"assessment-modes.md missing required phrase: {phrase}")
 
 
+def validate_required_files() -> None:
+    for path in REQUIRED_FILES:
+        if not path.exists():
+            fail(f"missing required RedLens professional file: {path}")
+
+
+def validate_professional_report_standard() -> None:
+    text = PRO_REPORT.read_text(encoding="utf-8").lower()
+    for phrase in ("artifact", "redaction", "retest", "executive summary", "attack chain"):
+        if phrase not in text:
+            fail(f"professional-report-standard.md missing required phrase: {phrase}")
+
+
 def validate_agent() -> None:
     if not AGENT.exists():
         fail(f"missing {AGENT}")
@@ -117,8 +151,10 @@ def validate_agent() -> None:
 
 
 def main() -> None:
+    validate_required_files()
     validate_skill()
     validate_assessment_modes()
+    validate_professional_report_standard()
     validate_agent()
     print("OK: RedLens skill package is valid")
 

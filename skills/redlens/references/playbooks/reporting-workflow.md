@@ -2,6 +2,8 @@
 
 Use after testing, or throughout testing to keep evidence ready for a final report.
 
+For professional deliverables, use `../reporting/professional-report-standard.md` and `../reporting/finding-schema.md` as the report contract.
+
 ## Inputs
 
 - Authorized scope and test dates.

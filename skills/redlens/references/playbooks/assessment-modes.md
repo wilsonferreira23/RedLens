@@ -20,6 +20,8 @@ If the user does not choose a mode, use `standard`.
 4. Every mode must list skipped checks and explain whether they were out of scope, too risky, blocked, unsupported by the environment, or deferred to a deeper mode.
 5. Escalate from `quick` to `standard`, or `standard` to `deep`, when findings suggest hidden attack surface, authentication complexity, exposed admin surfaces, sensitive data, unusual infrastructure, or inconsistent scanner results.
 
+Apply `../strategy/coverage-gates.md` before ending any mode.
+
 ## Coverage by Target Type
 
 ### Web Application

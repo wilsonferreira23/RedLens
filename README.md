@@ -115,12 +115,25 @@ RedLens can operate through:
 
 It records work under `/tmp/kali-pentest-state/<target>/` so evidence, raw output, findings, and gaps are not lost between steps.
 
+Professional runs can use structured state files: `engagement.json`, `findings.jsonl`, `evidence_manifest.jsonl`, `coverage.json`, and `command_log.jsonl`.
+
 ## The RedLens Loop
 
 ```text
 Authorize -> Scope -> Choose mode -> Select playbook -> Run focused checks
           -> Save evidence -> Validate findings -> Report fixes -> Recommend next depth
 ```
+
+## Professional Reports
+
+RedLens treats the report as the product:
+
+- Structured findings, not scanner dumps.
+- Evidence artifact index with hashes and redaction status.
+- Business impact and technical impact separated.
+- Attack chain narratives when findings combine.
+- CVSS, CWE, OWASP, and MITRE ATT&CK mapping where relevant.
+- Retest checklist and remediation roadmap.
 
 ## Validate The Package
 
@@ -139,6 +152,8 @@ OK: RedLens skill package is valid
 ```text
 skills/redlens/SKILL.md                       # Canonical cross-agent skill
 skills/redlens/references/playbooks/          # Mode contracts and assessment playbooks
+skills/redlens/references/strategy/           # Operator brain, coverage gates, attack chains
+skills/redlens/references/reporting/          # Professional report standards
 skills/redlens/references/**/tools/           # Kali tool references
 opencode/agents/redlens.md                    # OpenCode subagent adapter
 scripts/install.sh                            # Installer for Codex, Claude Code, OpenCode
