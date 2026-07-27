@@ -1,31 +1,37 @@
 # RedLens
 
-Agente único de pentest web do OpenCode.
+![RedLens cover](assets/redlens-readme-cover.png)
 
-## Uso
+**Attack your own AI-built app before the internet does.**
 
-```text
-/pentest https://alvo-autorizado.example
-```
+RedLens is an authorized, evidence-driven black-box assessment runtime for
+Codex and OpenCode. It combines a scoped control plane, a reproducible Kali
+container, CloakBrowser and structured reports without mixing operational data
+into the source checkout.
 
-O agente exige autorização e escopo antes de qualquer requisição. Todo estado
-é persistido em `runs/` no diretório de dados configurado.
+## Safety
+
+Use RedLens only on systems you own or are explicitly authorized to assess.
+Authorization, target scope, environment, rate limits and prohibited
+techniques are binding. High-risk actions require a separate approval.
 
 ## Bootstrap
 
-Requisitos: Python 3.12+ e Docker Desktop ou Docker Engine.
+Requirements: Python 3.12+ and Docker Desktop or Docker Engine.
 
 ```sh
+git clone https://github.com/wilsonferreira23/RedLens.git
+cd RedLens
 ./runtime/bootstrap.sh
 ```
 
-Para construir e iniciar o runtime Kali durante o bootstrap:
+To build and start the Kali runtime during bootstrap:
 
 ```sh
 REDLENS_BUILD_RUNTIME=1 ./runtime/bootstrap.sh
 ```
 
-O local pode ser alterado sem editar código:
+Keep operational state outside the checkout:
 
 ```sh
 REDLENS_HOME="$PWD" \
@@ -33,10 +39,17 @@ REDLENS_DATA_DIR="/path/to/redlens-data" \
 ./runtime/bootstrap.sh
 ```
 
-Depois da instalação, use `redlens doctor`, `redlens health` e
+After installation, run `redlens doctor`, `redlens health` and
 `redlens runtime status`.
 
-Para migrar o container manual atual para Compose com rollback disponível:
+## Runtime
+
+The persistent `kali-pentest` container supplies the 15-tool Kali set and the
+RedLens wrappers. CloakBrowser is the primary browser backend; Playwright is a
+fallback only when the primary backend fails. `redlens-health` validates the
+container, browser navigation, tools and configured data volume.
+
+For a safe migration of a manually created container to Compose:
 
 ```sh
 redlens runtime preflight
@@ -44,38 +57,39 @@ redlens runtime adopt --image redlens-kali:repro
 redlens runtime rollback
 ```
 
-`preflight` é somente leitura. `adopt` preserva o container antigo com nome
-versionado, valida o health check e desfaz a troca se a validação falhar.
+`preflight` is read-only. `adopt` preserves the prior container with a
+versioned name, validates the health check and rolls back if validation fails.
 
-Para revisar ou migrar uma operação antiga com backup automático:
+## Use
 
-```sh
-redlens migrate --run <run-id> --dry-run
-redlens migrate --run <run-id>
+```text
+/pentest https://authorized-target.example
 ```
 
-O manifesto de ferramentas pode ser gerado sem dependências externas:
+The agent asks for authorization and scope before any request, then records
+inventory, hypotheses, evidence, coverage and findings in the configured data
+directory. Use `quick`, `standard` or `deep` according to the approved scope.
+
+## Layout
+
+- `engine/`: authorization, scope, coverage and quality gates.
+- `adapters/`: controlled assessment integrations.
+- `runtime/`: Kali image, Compose runtime and mounted workers.
+- `opencode/`: OpenCode agent, command and skill adapter.
+- `skills/`: portable cross-agent skill package.
+- `tests/`: local verification without real targets.
+
+Read [DATA_BOUNDARY.md](DATA_BOUNDARY.md) before sharing a checkout. It
+defines the separation between versioned source and private operational data.
+
+## Validation
 
 ```sh
-python -m runtime.manifest --output /tmp/redlens-sbom.json
+python -m unittest discover -s tests -p 'test_*.py'
+docker compose -f runtime/compose.yaml config --quiet
+redlens-health
 ```
 
-Se o virtualenv nao estiver ativo, use os mesmos comandos com o prefixo
-`$REDLENS_HOME/.venv/bin/` ou ative-o com `source .venv/bin/activate`.
+## License
 
-## Diretórios
-
-- `opencode/`: agente, comando e skill.
-- `engine/`: autorização, escopo, cobertura e quality gate.
-- `adapters/`: integrações internas.
-- `runtime/`: workspace do Kali e referências ao Decepticon.
-- `runs/`: operações e evidências, no diretório de dados configurado.
-- `backups/`: backups operacionais, no diretório de dados configurado.
-- `tests/`: verificações locais sem acesso a alvos.
-
-Veja [DATA_BOUNDARY.md](DATA_BOUNDARY.md) antes de compartilhar o checkout.
-
-O adapter de navegador mantém o CloakBrowser como backend principal. Chromium
-Playwright existe apenas como contingência se o backend principal falhar. O
-diagnóstico `redlens-health` verifica o runtime configurado, e CAPTCHA ou
-desafios exigem intervenção humana.
+MIT. See [LICENSE](LICENSE).
