@@ -1,0 +1,23 @@
+x-kali-common: &kali-common
+  build:
+    context: ./kali-image
+    dockerfile: Dockerfile
+  image: ${REDLENS_IMAGE:-redlens-kali:repro}
+  init: true
+  working_dir: /workspace
+  command: ["sleep", "infinity"]
+  volumes:
+    - ${REDLENS_WORKSPACE_DIR:-./kali-workspace}:/workspace
+
+services:
+  kali-pentest:
+    <<: *kali-common
+    container_name: ${REDLENS_CONTAINER:-kali-pentest}
+    profiles: [web]
+
+  kali-pentest-network:
+    <<: *kali-common
+    container_name: ${REDLENS_NETWORK_CONTAINER:-kali-pentest-network}
+    profiles: [network]
+    network_mode: host
+    privileged: true

@@ -1,0 +1,48 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "redlens"
+version = "0.1.0"
+description = "Authorized web and API assessment runtime"
+readme = "README.md"
+requires-python = ">=3.12,<3.15"
+dependencies = []
+
+[project.scripts]
+redlens = "redlens_entrypoints:main"
+redlensctl = "redlens_entrypoints:main"
+redlens-health = "redlens_entrypoints:main"
+redlens-kali-safe = "redlens_entrypoints:main"
+redlens-decepticon-analyze = "redlens_entrypoints:main"
+redlens-api-safe = "redlens_entrypoints:main"
+redlens-web-safe = "redlens_entrypoints:main"
+redlens-browser-safe = "redlens_entrypoints:main"
+redlens-mutate-safe = "redlens_entrypoints:main"
+redlens-sqlmap-safe = "redlens_entrypoints:main"
+redlens-xss-safe = "redlens_entrypoints:main"
+redlens-cmdi-safe = "redlens_entrypoints:main"
+redlens-csrf-safe = "redlens_entrypoints:main"
+redlens-massassign-safe = "redlens_entrypoints:main"
+redlens-login-safe = "redlens_entrypoints:main"
+redlens-plan-safe = "redlens_entrypoints:main"
+redlens-replay-safe = "redlens_entrypoints:main"
+redlens-authz-safe = "redlens_entrypoints:main"
+redlens-nosqli-safe = "redlens_entrypoints:main"
+redlens-ssrf-safe = "redlens_entrypoints:main"
+redlens-xxe-safe = "redlens_entrypoints:main"
+redlens-ssti-safe = "redlens_entrypoints:main"
+redlens-traversal-safe = "redlens_entrypoints:main"
+redlens-race-workflow-safe = "redlens_entrypoints:main"
+redlens-semantic-authz-safe = "redlens_entrypoints:main"
+redlens-email-safe = "redlens_entrypoints:main"
+redlens-jwt-safe = "redlens_entrypoints:main"
+redlens-subdomain-safe = "redlens_entrypoints:main"
+redlens-preflight = "redlens_entrypoints:main"
+
+[tool.setuptools]
+py-modules = ["redlens_config", "redlens_entrypoints"]
+
+[tool.setuptools.packages.find]
+include = ["adapters*", "engine*", "runtime*"]

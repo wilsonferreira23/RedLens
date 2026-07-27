@@ -1,0 +1,133 @@
+{
+  "benchmark_run_id": "redlens-benchmark-1785174751",
+  "generated_at": "2026-07-27T18:19:00.000000+00:00",
+  "target": "juice-shop,webgoat,dvwa,vampi",
+  "targets": [
+    "juice-shop",
+    "webgoat",
+    "dvwa",
+    "vampi"
+  ],
+  "verified_findings": [
+    {
+      "target": "juice-shop",
+      "url": "http://localhost:13000",
+      "title": "Reflected XSS via search",
+      "severity": "high",
+      "category": "xss",
+      "endpoint": "/#/search?q=",
+      "method": "GET",
+      "evidence": "Playwright headless Chrome triggered alert() with <img src=x onerror=alert(1)>"
+    },
+    {
+      "target": "juice-shop",
+      "url": "http://localhost:13000",
+      "title": "SQL Injection em login",
+      "severity": "critical",
+      "category": "sqli",
+      "endpoint": "/rest/user/login",
+      "method": "POST",
+      "evidence": "Payload OR 1=1-- bypassed authentication and returned admin JWT"
+    },
+    {
+      "target": "juice-shop",
+      "url": "http://localhost:13000",
+      "title": "BOLA em GET /api/Users/{id}",
+      "severity": "high",
+      "category": "authz",
+      "endpoint": "/api/Users/<id>",
+      "method": "GET",
+      "evidence": "Customer token retrieved admin profile via id=1"
+    },
+    {
+      "target": "webgoat",
+      "url": "http://localhost:8081/WebGoat",
+      "title": "SQL Injection in login form",
+      "severity": "critical",
+      "category": "sqli",
+      "endpoint": "/WebGoat/SqlInjection/assignment5b",
+      "method": "POST",
+      "evidence": "userid=1 OR 1=1 returned all user_data rows including credit cards"
+    },
+    {
+      "target": "webgoat",
+      "url": "http://localhost:8081/WebGoat",
+      "title": "Reflected XSS in lesson parameter",
+      "severity": "high",
+      "category": "xss",
+      "endpoint": "/WebGoat/CrossSiteScripting/attack5a",
+      "method": "GET",
+      "evidence": "field1=<script>alert(1)</script> reflected unencoded and completed lesson"
+    },
+    {
+      "target": "dvwa",
+      "url": "http://localhost:8082",
+      "title": "SQL Injection in ID parameter",
+      "severity": "critical",
+      "category": "sqli",
+      "endpoint": "/vulnerabilities/sqli/?id=",
+      "method": "GET",
+      "evidence": "id=1' OR '1'='1 returned multiple user records"
+    },
+    {
+      "target": "dvwa",
+      "url": "http://localhost:8082",
+      "title": "Reflected XSS in name field",
+      "severity": "high",
+      "category": "xss",
+      "endpoint": "/vulnerabilities/xss_r/",
+      "method": "GET",
+      "evidence": "name=<script>alert(1)</script> reflected unencoded in response"
+    },
+    {
+      "target": "dvwa",
+      "url": "http://localhost:8082",
+      "title": "CSRF on password change",
+      "severity": "medium",
+      "category": "csrf",
+      "endpoint": "/vulnerabilities/csrf/",
+      "method": "GET",
+      "evidence": "Password changed without synchronizer token or origin validation"
+    },
+    {
+      "target": "dvwa",
+      "url": "http://localhost:8082",
+      "title": "Command Injection in ping utility",
+      "severity": "critical",
+      "category": "cmdi",
+      "endpoint": "/vulnerabilities/exec/",
+      "method": "POST",
+      "evidence": "ip=127.0.0.1; id executed id command and returned www-data uid"
+    },
+    {
+      "target": "vampi",
+      "url": "http://localhost:15000",
+      "title": "BFLA: password change cross-user",
+      "severity": "high",
+      "category": "authz",
+      "endpoint": "/users/v1/{username}/password",
+      "method": "PUT",
+      "evidence": "Regular user token changed admin password and authenticated as admin"
+    },
+    {
+      "target": "vampi",
+      "url": "http://localhost:15000",
+      "title": "BOLA: leitura cross-user",
+      "severity": "high",
+      "category": "authz",
+      "endpoint": "/users/v1/{username}",
+      "method": "GET",
+      "evidence": "Regular user token retrieved admin profile"
+    },
+    {
+      "target": "vampi",
+      "url": "http://localhost:15000",
+      "title": "SQLi em username path",
+      "severity": "critical",
+      "category": "sqli",
+      "endpoint": "/users/v1/{username}",
+      "method": "GET",
+      "evidence": "name1' caused SQLite syntax error exposing raw query concatenation"
+    }
+  ]
+}

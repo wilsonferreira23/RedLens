@@ -1,0 +1,13 @@
+[paths]
+# home = "/path/to/redlens"
+# data_dir = "/path/to/redlens-data"
+# backups_dir = "/path/to/redlens-data/backups"
+# runtime_dir = "/path/to/redlens-data/runtime"
+# workspace_dir = "/path/to/redlens-data/runtime/kali-workspace"
+# runs_dir = "/path/to/redlens-data/runs"
+
+[runtime]
+container_name = "kali-pentest"
+# compose_file = "/path/to/redlens/runtime/compose.yaml"
+# cloak_python = "/path/to/cloakbrowser-venv/bin/python"
+# cloak_cache = "/path/to/cloakbrowser-cache"

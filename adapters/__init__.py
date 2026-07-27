@@ -1,0 +1,1 @@
+"""RedLens capability adapters."""

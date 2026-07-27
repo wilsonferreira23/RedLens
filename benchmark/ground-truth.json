@@ -1,0 +1,98 @@
+{
+  "schema_version": 1,
+  "description": "Vulnerabilidades conhecidas dos laboratorios usadas para medir recall e precisao do RedLens.",
+  "targets": {
+    "juice-shop": {
+      "base_url": "http://localhost:13000",
+      "source": "OWASP Juice Shop",
+      "known_findings": [
+        {
+          "id": "JS-001",
+          "category": "xss",
+          "title": "DOM XSS no campo de busca",
+          "location": "/#/search?q=<script>alert(1)</script>",
+          "severity": "medium",
+          "validation": "reflected_execution"
+        },
+        {
+          "id": "JS-002",
+          "category": "sql_injection",
+          "title": "SQL injection no login",
+          "location": "/rest/user/login",
+          "severity": "critical",
+          "validation": "authentication_bypass"
+        },
+        {
+          "id": "JS-003",
+          "category": "idor",
+          "title": "IDOR no carrinho de compras",
+          "location": "/rest/basket/{id}",
+          "severity": "high",
+          "validation": "cross_user_access"
+        },
+        {
+          "id": "JS-004",
+          "category": "sensitive_exposure",
+          "title": "Score Board acessivel sem autenticacao",
+          "location": "/#/score-board",
+          "severity": "low",
+          "validation": "anonymous_access"
+        },
+        {
+          "id": "JS-005",
+          "category": "improper_input_validation",
+          "title": "Registro com email de administrador",
+          "location": "/api/Users/",
+          "severity": "high",
+          "validation": "privilege_escalation"
+        }
+      ]
+    },
+    "vampi": {
+      "base_url": "http://localhost:15000",
+      "source": "VAmPI",
+      "known_findings": [
+        {
+          "id": "VA-001",
+          "category": "bola",
+          "title": "BOLA em livros de outros usuarios",
+          "location": "/books/v1/{book_id}",
+          "severity": "high",
+          "validation": "cross_user_access"
+        },
+        {
+          "id": "VA-002",
+          "category": "weak_jwt",
+          "title": "JWT secreto fraco permitindo forgery",
+          "location": "/login",
+          "severity": "critical",
+          "validation": "offline_token_manipulation"
+        },
+        {
+          "id": "VA-003",
+          "category": "mass_assignment",
+          "title": "Mass assignment em perfil de usuario",
+          "location": "/users/v1/{username}",
+          "severity": "high",
+          "validation": "privilege_escalation"
+        },
+        {
+          "id": "VA-004",
+          "category": "information_disclosure",
+          "title": "Endpoint de debug exposto",
+          "location": "/users/v1/_debug",
+          "severity": "medium",
+          "validation": "anonymous_access"
+        },
+        {
+          "id": "VA-005",
+          "category": "authz_bypass",
+          "title": "Exclusao de usuario sem autorizacao",
+          "location": "/users/v1/{username}",
+          "severity": "high",
+          "validation": "unauthorized_mutation"
+        }
+      ]
+    }
+  }
+}

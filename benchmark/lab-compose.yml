@@ -1,0 +1,36 @@
+services:
+  juice-shop:
+    image: bkimminich/juice-shop:latest
+    container_name: redlens-juice-shop
+    ports:
+      - "13000:3000"
+    networks:
+      - redlens-lab
+    healthcheck:
+      test: ["CMD", "/nodejs/bin/node", "-e", "require('http').get('http://localhost:3000/', (r) => process.exit(r.statusCode >= 200 && r.statusCode < 400 ? 0 : 1)).on('error', () => process.exit(1))"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+      start_period: 10s
+    restart: unless-stopped
+
+  vampi:
+    image: erev0s/vampi:latest
+    container_name: redlens-vampi
+    ports:
+      - "15000:5000"
+    environment:
+      - FLASK_ENV=development
+    networks:
+      - redlens-lab
+    healthcheck:
+      test: ["CMD", "python3", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:5000/').read()"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+      start_period: 10s
+    restart: unless-stopped
+
+networks:
+  redlens-lab:
+    driver: bridge

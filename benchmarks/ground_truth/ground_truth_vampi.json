@@ -1,0 +1,70 @@
+{
+  "target": "vampi",
+  "url": "http://localhost:15000",
+  "description": "VAmPI - Vulnerable API",
+  "vulnerabilities": [
+    {
+      "id": "vampi-bfla-1",
+      "title": "BFLA: usuarios comuns deletam usuarios",
+      "severity": "high",
+      "category": "authz",
+      "endpoint": "/api/v1/users/<id>",
+      "method": "DELETE",
+      "description": "Endpoint PATCH/DELETE em /users nao checa role"
+    },
+    {
+      "id": "vampi-bola-1",
+      "title": "BOLA: leitura cross-user",
+      "severity": "high",
+      "category": "authz",
+      "endpoint": "/api/v1/users/<id>",
+      "method": "GET",
+      "description": "GET /users/<id> retorna dados de qualquer usuario"
+    },
+    {
+      "id": "vampi-bola-2",
+      "title": "BOLA: edicao cross-user",
+      "severity": "high",
+      "category": "authz",
+      "endpoint": "/api/v1/users/<id>",
+      "method": "PUT",
+      "description": "PUT /users/<id> permite editar qualquer usuario"
+    },
+    {
+      "id": "vampi-sqli-1",
+      "title": "SQLi em login",
+      "severity": "critical",
+      "category": "sqli",
+      "endpoint": "/api/v1/login",
+      "method": "POST",
+      "description": "Campo username eh vulneravel a SQLi"
+    },
+    {
+      "id": "vampi-nosqli-1",
+      "title": "NoSQL injection em login",
+      "severity": "critical",
+      "category": "sqli",
+      "endpoint": "/api/v1/login",
+      "method": "POST",
+      "description": "Campo username aceita operadores MongoDB"
+    },
+    {
+      "id": "vampi-xss-1",
+      "title": "Stored XSS em username",
+      "severity": "high",
+      "category": "xss",
+      "endpoint": "/api/v1/users",
+      "method": "POST",
+      "description": "Username nao eh sanitizado ao ser exibido"
+    },
+    {
+      "id": "vampi-info-1",
+      "title": "User enumeration via timing",
+      "severity": "low",
+      "category": "authn",
+      "endpoint": "/api/v1/login",
+      "method": "POST",
+      "description": "Tempo de resposta diferente para usuarios validos/invalidos"
+    }
+  ]
+}

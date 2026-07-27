@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "base_image": "kalilinux/kali-rolling@sha256:40e386ce0c263b924e59215a3a2a8d969a95d808856ed255d0b1ee95fbfec2a4",
+  "captured_from_image": "redlens-kali:adata",
+  "apt_packages": {
+    "arjun": "2.2.7-1",
+    "ca-certificates": "20260601",
+    "commix": "4.1-0kali1",
+    "curl": "8.20.0-5",
+    "feroxbuster": "2.13.1-0kali3",
+    "ffuf": "2.1.0-1+b11",
+    "git": "1:2.53.0-1",
+    "httpx-toolkit": "1.9.0-0kali2",
+    "nikto": "1:2.6.0-0kali4",
+    "nuclei": "3.11.0-0kali1",
+    "python3": "3.13.9-3+b1",
+    "python3-pip": "26.1.2+dfsg-1",
+    "sqlmap": "1.10.6-1",
+    "sslscan": "2.1.5-1+b1",
+    "wafw00f": "2.4.2-1",
+    "whatweb": "0.6.4-1"
+  },
+  "python_packages": {
+    "PyYAML": "6.0.3",
+    "requests": "2.32.5",
+    "schemathesis": "4.24.3"
+  },
+  "vendored_binaries": {
+    "katana": "sha256:89c96da2c6f9160dc52f8851684031a623364b3056ba654cca3b2fbc6601b853",
+    "dalfox": "sha256:0394269d9097fcfcc4c08b3733103481543a28d364a7f6ca7a3b3b380609c29c",
+    "tplmap.py": "sha256:f21af92ca710724c6479f26841a5c2069bd187c53a29dacf8e38c960a9479cc2"
+  }
+}

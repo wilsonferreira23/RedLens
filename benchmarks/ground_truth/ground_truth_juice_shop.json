@@ -1,0 +1,61 @@
+{
+  "target": "juice-shop",
+  "url": "http://localhost:13000",
+  "description": "OWASP Juice Shop",
+  "vulnerabilities": [
+    {
+      "id": "juice-xss-1",
+      "title": "Reflected XSS via search",
+      "severity": "high",
+      "category": "xss",
+      "endpoint": "/rest/products/search?q=",
+      "method": "GET",
+      "description": "Parametro q reflete HTML"
+    },
+    {
+      "id": "juice-sqli-1",
+      "title": "SQL Injection em login",
+      "severity": "critical",
+      "category": "sqli",
+      "endpoint": "/rest/user/login",
+      "method": "POST",
+      "description": "Email field eh vulneravel a SQLi"
+    },
+    {
+      "id": "juice-bfla-1",
+      "title": "BFLA em PUT /api/Users/{id}",
+      "severity": "high",
+      "category": "authz",
+      "endpoint": "/api/Users/<id>",
+      "method": "PUT",
+      "description": "Permite alterar role de outro usuario"
+    },
+    {
+      "id": "juice-bola-1",
+      "title": "BOLA em GET /api/Users/{id}",
+      "severity": "high",
+      "category": "authz",
+      "endpoint": "/api/Users/<id>",
+      "method": "GET",
+      "description": "IDOR em users"
+    },
+    {
+      "id": "juice-ssrf-1",
+      "title": "SSRF via profile image URL",
+      "severity": "high",
+      "category": "ssrf",
+      "endpoint": "/api/users/{id}/image",
+      "method": "PUT",
+      "description": "Aceita URL externa como imagem"
+    },
+    {
+      "id": "juice-xss-2",
+      "title": "DOM XSS em order payment",
+      "severity": "high",
+      "category": "xss",
+      "endpoint": "/rest/order-payment",
+      "method": "POST",
+      "description": "Campo paymentMethod reflete direto no DOM"
+    }
+  ]
+}
